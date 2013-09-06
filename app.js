@@ -42,6 +42,8 @@ app.post('/jobs/new',job.save);
 app.get('/jobs', job.list);
 app.get('/jobs/search',job.searchPage);
 app.get('/api/jobs/:skills' , job.search);
+app.get('/jobs/search-geonear',job.searchPageWithGeoNear);
+app.get('/jobs/search-geonear/:skills' , job.searchWithGeoNear);
 
 http.createServer(app).listen(app.get('port'),app.get('ipaddress') ,  function(){
   console.log('Express server listening on '+app.get('ipaddress')+ ':'+ app.get('port'));

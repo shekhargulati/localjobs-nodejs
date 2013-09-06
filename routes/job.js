@@ -110,3 +110,53 @@ exports.search = function(req , res){
   			
   	});
 }
+
+exports.searchPageWithGeoNear = function(req , res){
+	res.render("jobs/search-geonear" , {"title" :"Search Jobs"});	
+}
+
+exports.searchWithGeoNear = function(req , res){
+	var lat = parseFloat(req.query.lat);
+  	var lng = parseFloat(req.query.lng);
+  	var skills = req.params.skills.split(",");
+  	console.log(lat + " , " + lng + " , " + skills);
+  	
+  	db.runCommand({
+  		geoNear : "jobs",
+  		near : [lng , lat],
+  		query: {"skills" : {"$in" : skills}},
+  		limit : 10,
+  		distanceMultiplier : 111
+  	} , function(err , docs){
+  			if(!err){
+  				var jobs = toJobs(docs);
+  				res.render("jobs/showall", {"title" : "Recently created "+jobs.length+" Job(s)", "docs": jobs});
+  			}else{
+  				res.send("Error "+err);
+  			}
+  			
+  	});
+}
+
+function toJobs(docs){
+	return _underscore.map(docs.results,function(doc){
+  					var job = {
+						"title" : doc.obj.title,
+						"description" : doc.obj.description,
+						"skills" : doc.obj.skills,
+						"location" : doc.obj.location,
+						"lngLat" : doc.obj.lngLat,
+						"createdOn" : doc.obj.createdOn,
+						"company" : {
+							"name" :doc.obj.company.name,
+							"website" : doc.obj.company.website,
+							"contact" :{
+								"email" : doc.obj.company.contact.email,
+								"telephone" : doc.obj.company.contact.telephone
+							}
+						},
+						"distance" : doc.dis
+					}
+  					return job;
+  				});
+}

@@ -1,0 +1,51 @@
+<% layout('../layout') -%>
+<link rel="stylesheet" type="text/css" href="/css/jquery.tagsinput.css" />
+<link href="/css/jquery.loadmask.css" rel="stylesheet" type="text/css" />
+<style>
+#map-canvas {
+	height: 500px;
+	width: 100%;
+}
+.job_info {border: 1px solid #000;padding: 15px;width: 300px}
+.job_info h3 {margin-bottom: 10px}
+</style>
+
+		<form id="jobSearchForm" class="form-horizontal">
+			<div class="control-group">
+				<div class="controls">
+					<input type="text" id="skills" name="skills" class="input-xlarge"
+						placeholder="Enter skills for which you want to search jobs"
+						required>
+				</div>
+			</div>
+
+			<div class="control-group">
+				<div class="controls">
+					<button id="findJobsButton" type="submit" class="btn btn-success">Find
+						Jobs</button>
+				</div>
+			</div>
+
+		</form>
+		
+		<div id="results">
+		</div>
+		
+	<script src="/js/jquery.tagsinput.js"></script>
+	<script type="text/javascript" src="/js/jquery.loadmask.min.js"></script>
+	<script
+		src="https://maps.googleapis.com/maps/api/js?sensor=true"></script>
+	
+	
+	<script type="text/javascript">
+	$( document ).ready( function() {
+		$('#skills').tagsInput({
+			defaultText : "add skills"
+		});
+	});
+	if(!navigator.geolocation){
+		alert('Your browser does not support geolocation. Please download latest browser version.');
+		$("#findJobsButton").attr("disabled", "disabled");
+	}
+	</script>
+	<%- body %>	

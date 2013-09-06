@@ -23,6 +23,12 @@
 					<a href="mailto:<%= docs[i].company.contact.email %>"><%= docs[i].company.contact.email %></a>
 				</address>
 			</dd>
+			<% if(docs[i].distance){ %>
+			<dt>Distance</dt>
+			<dd>
+				<p class="small"><%= docs[i].distance %> Km</p>
+			</dd>
+			<%}%>
 		</dl>
 	<%}%>
 
