@@ -70,8 +70,7 @@ exports.save = function(req , res){
 					res.send("Job not saved");
 				
 				}else{
-					res.send("Job saved..");
-
+					res.redirect('/jobs');
 				}
 			});
 			
@@ -79,4 +78,15 @@ exports.save = function(req , res){
 		
 	});
 
+};
+
+exports.list = function(req, res){
+	jobs.find().limit(20).sort({createdOn: -1} , function(err , docs){
+		if(!err){
+			res.render("jobs/showall", {"title" : "Recently created "+docs.length+" Job(s)", "docs": docs});
+		}else{
+			res.send("Error "+err);
+		}
+	});
+  	
 };

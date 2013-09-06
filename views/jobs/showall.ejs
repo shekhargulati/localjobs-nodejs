@@ -1,0 +1,29 @@
+<% layout('../layout') -%>
+<h1><%= title %></h1>
+
+	<% for(var i = 0 ;i<docs.length;i++){ %>
+		<dl class="dl-horizontal">
+			<dt>Job Title</dt>
+			<dd><%= docs[i].title %> at <%= docs[i].company.name %></dd>
+			<dt>Job Description</dt>
+			<dd>
+				<p class="small"><%= docs[i].description %></p>
+			</dd>
+			<dt>Company Website</dt>
+			<dd>
+				<p class="small"><a href="<%= docs[i].company.website %>" target="_blank"><%= docs[i].company.website %></a></p>
+			</dd>
+			<dt>
+				Address
+			</dt>
+			<dd>
+				<address>
+					<%= docs[i].location%>
+					<abbr title="Phone">P:</abbr> <%= docs[i].company.contact.telephone %>
+					<a href="mailto:<%= docs[i].company.contact.email %>"><%= docs[i].company.contact.email %></a>
+				</address>
+			</dd>
+		</dl>
+	<%}%>
+
+
