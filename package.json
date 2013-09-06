@@ -9,6 +9,9 @@
     "express": "3.3.8",
     "ejs": "*",
     "express-partials": "*",
-    "ejs-locals": "*"
+    "ejs-locals": "*",
+    "mongojs": "~0.9.3",
+    "googlemaps": "~0.1.8",
+    "underscore": "~1.5.1"
   }
 }

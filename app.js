@@ -8,7 +8,7 @@ var port      = process.env.OPENSHIFT_NODEJS_PORT || 3000;
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
+var job = require('./routes/job');
 var http = require('http');
 var path = require('path');
 var engine = require("ejs-locals");
@@ -37,7 +37,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
+app.get('/jobs/new',job.new);
+app.post('/jobs/new',job.save);
 
 http.createServer(app).listen(app.get('port'),app.get('ipaddress') ,  function(){
   console.log('Express server listening on '+app.get('ipaddress')+ ':'+ app.get('port'));
