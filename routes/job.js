@@ -90,3 +90,23 @@ exports.list = function(req, res){
 	});
   	
 };
+
+exports.searchPage = function(req , res){
+	res.render("jobs/search" , {"title" :"Search Jobs"});	
+}
+
+exports.search = function(req , res){
+	var lat = parseFloat(req.query.lat);
+  	var lng = parseFloat(req.query.lng);
+  	var skills = req.params.skills.split(",");
+  	console.log(lat + " , " + lng + " , " + skills);
+  	jobs.find({"skills" : {"$in" : skills},"lngLat" : {"$near": [lng , lat]}}).limit(10).sort({"createdOn":-1},function(err , docs){
+  			if(!err){
+  				res.header("Content-Type","application/json");
+  				res.send(JSON.stringify(docs));
+  			}else{
+  				res.send("Error "+err);
+  			}
+  			
+  	});
+}

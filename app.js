@@ -40,6 +40,8 @@ app.get('/', routes.index);
 app.get('/jobs/new',job.new);
 app.post('/jobs/new',job.save);
 app.get('/jobs', job.list);
+app.get('/jobs/search',job.searchPage);
+app.get('/api/jobs/:skills' , job.search);
 
 http.createServer(app).listen(app.get('port'),app.get('ipaddress') ,  function(){
   console.log('Express server listening on '+app.get('ipaddress')+ ':'+ app.get('port'));
